@@ -4,7 +4,6 @@ pipeline {
     stage('SonarCloud Scan') {
       environment {
         SCANNER_HOME = tool 'SonarQubeScanner'
-        #SONAR_TOKEN = credentials('SonarCloudOne')
         ORGANIZATION = "abd-xon"
         PROJECT_NAME = "abd-xon_notejam-jenkins"
       }
