@@ -24,15 +24,10 @@ pipeline {
           }
        }
     }
-      stage('Build image') {         
-       
-            app = docker.build("arkdocr/jenkins")    
-       }             
-      stage('Push image') {
-          docker.withRegistry('https://registry.hub.docker.com', 'docker') {                  
-             app.push("${env.BUILD_NUMBER}")            
-              app.push("latest")        
-              }    
-           }
+    stage("Build") {
+        steps {
+            echo "This build will begin after the quality gate is passed."
+        }
+    }
   }
 }
