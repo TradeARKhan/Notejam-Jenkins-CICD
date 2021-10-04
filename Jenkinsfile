@@ -26,7 +26,7 @@ pipeline {
     }
     stage("Build") {
         steps {
-            echo "The build will begin after the quality gate is passed."
+            echo "This build will begin after the quality gate is passed."
         }
     }
   }
