@@ -25,14 +25,17 @@ pipeline {
        }
     }
       stage('Build image') {         
-       
+       steps {
             app = docker.build("arkdocr/jenkins")    
+          }
        }             
       stage('Push image') {
+        steps {
           docker.withRegistry('https://registry.hub.docker.com', 'docker') {                  
              app.push("${env.BUILD_NUMBER}")            
               app.push("latest")        
               }    
            }
+      }
   }
 }
