@@ -1,24 +1,21 @@
 pipeline {
     agent any
     stages {
-        stage('SonarQube analysis') {
+      stage('SonarQube analysis') {
+        def scannerHome = tool 'SonarScanner 4.0';
+            withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+      }
+        stage("Quality Gate") {
             steps {
-                withSonarQubeEnv('sonarcloud') {
-                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=abd-xon_notejam-jenkins"
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
-        
-       stage("Test") {
-	  steps {
-        echo "hello, this is the build stage."
-	  }
-       }
+    }
+}
 
-       stage("deploy") {
-	  steps {
-		echo "hello, this is the "
-	  }
-       }
-   }
- }
