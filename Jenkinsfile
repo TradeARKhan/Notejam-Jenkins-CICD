@@ -1,5 +1,6 @@
 pipeline {
-    agent any 
+    agent any
+    stages {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SONAR_TOKEN') {
@@ -19,4 +20,5 @@ pipeline {
 		echo "hello, this is the "
 	  }
        }
-}
+   }
+ }
