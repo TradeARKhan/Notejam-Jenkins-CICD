@@ -8,7 +8,7 @@ ENV NOTEJAM_PORT=3000
 
 EXPOSE $NOTEJAM_PORT/tcp
 USER root
-WORKDIR /home/node/app/
+WORKDIR /home/root/app/
 
 COPY --chown=root:root /notejam-mysql/notejam/ /home/root/app
 
