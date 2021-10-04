@@ -1,4 +1,9 @@
 pipeline {
+    environment { 
+        registry = "arkdocr/jenkins" 
+        registryCredential = 'docker'
+        dockerImage = '' 
+    }
   agent any
   stages {
     stage('SonarCloud Scan') {
@@ -24,16 +29,21 @@ pipeline {
           }
        }
     }
-      stage('Build image') {         
-            app = docker.build("arkdocr/jenkins")    
-       }             
-      stage('Push image') {
-        steps {
-             docker.withRegistry('https://registry.hub.docker.com', 'docker') {                  
-             app.push("${env.BUILD_NUMBER}")            
-             app.push("latest")        
-              }    
-           }
-      }
+     stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
+        }
+   stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        }
   }
 }
