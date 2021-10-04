@@ -1,7 +1,0 @@
----
-- name: NoteJam-MySQL app installer playbook
-  hosts: notejam-app
-  become: yes
-  become_user: root
-  roles:
-    - gtrummell.notejam-app
