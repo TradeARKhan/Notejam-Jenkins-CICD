@@ -1,23 +1,33 @@
 pipeline {
-    agent any
-    stages {
-      stage('SonarQube analysis') {
-         steps {
-            def scannerHome = tool 'SonarScanner 4.0';
-         }
-         steps {
-            withSonarQubeEnv('sonarqube') { 
-            sh "${scannerHome}/bin/sonar-scanner"
-            }
-         }
+  agent any
+  stages {
+    stage('SonarCloud Scan') {
+      environment {
+        SCANNER_HOME = tool 'SonarQubeScanner'
+        #SONAR_TOKEN = credentials('SonarCloudOne')
+        ORGANIZATION = "abd-xon"
+        PROJECT_NAME = "abd-xon_notejam-jenkins"
       }
-      stage("Quality Gate") {
-        steps {
-            timeout(time: 1, unit: 'HOURS') {
-            waitForQualityGate abortPipeline: true
-            }
+      steps {
+        withSonarQubeEnv(installationName: 'SonarCloudOne') {
+            sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
+            -Dsonar.java.binaries=build/classes/java/ \
+            -Dsonar.projectKey=$PROJECT_NAME \
+            -Dsonar.sources=.'''
         }
+      }
     }
-}
-}
 
+    stage("Quality Gate") {
+      steps {
+        timeout(time: 1, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+
+  }
+  triggers {
+    pollSCM('')
+  }
+}
