@@ -19,5 +19,4 @@ pipeline {
 		echo "hello, this is the "
 	  }
        }
-   }
 }
