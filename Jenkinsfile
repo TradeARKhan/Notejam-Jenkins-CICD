@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SONAR_TOKEN') {
+                withSonarQubeEnv('sonarcloud') {
                     sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=abd-xon_notejam-jenkins"
                 }
             }
