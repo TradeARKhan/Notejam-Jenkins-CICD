@@ -23,6 +23,7 @@ pipeline {
             -Dsonar.branch.name=$BRANCH_NAME \
             -Dsonar.sources=.'''
             }
+          }
         }
         stage('SonarQube other analysis') {
         when {
@@ -36,7 +37,7 @@ pipeline {
             -Dsonar.branch.name=$CHANGE_BRANCH \
             -Dsonar.sources=.'''
             }
-        }
+          }
       }
       stage("Quality Gate") {
         steps {
