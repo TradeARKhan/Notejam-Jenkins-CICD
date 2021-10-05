@@ -1,7 +1,3 @@
-# Dockerized Node.js/Express implementation of Notejam by Sergey Komar
-#
-# VERSION: 0.0.1
-
 FROM node:10.13.0
 
 ENV NOTEJAM_PORT=3000
