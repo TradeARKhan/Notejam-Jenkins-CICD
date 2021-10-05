@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('SonarCloud Scan') {
+    stage('SonarCloud Scanning') {
       environment {
         SCANNER_HOME = tool 'SonarQubeScanner'
         SONAR_TOKEN = credentials('SonarCloudOne')
@@ -17,5 +17,12 @@ pipeline {
             }
         }
       }
+    stage("Quality Gate") {
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
+            waitForQualityGate abortPipeline: true
+          }
+       }
     }
+  }
 }
