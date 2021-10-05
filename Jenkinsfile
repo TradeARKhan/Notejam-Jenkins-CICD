@@ -6,22 +6,24 @@ pipeline {
         }
     agent any
     stages {
-      stage('SonarCloud Scanning') {
-        environment {
+        stage('SonarCloud Scanning') {
+            environment {
                 SCANNER_HOME = tool 'SonarQubeScanner'
                 SONAR_TOKEN = credentials('SonarCloudOne')
                 ORGANIZATION = "abd-xon"
                 PROJECT_NAME = "abd-xon_notejam-jenkins"
-      }
-      steps {
-        withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
-            sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
-            -Dsonar.java.binaries=build/classes/java/ \
-            -Dsonar.projectKey=$PROJECT_NAME \
-            -Dsonar.sources=.'''
+            }
+            steps {
+                withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
+                    -Dsonar.java.binaries=build/classes/java/ \
+                    -Dsonar.projectKey=$PROJECT_NAME \
+                    -Dsonar.branch.name=dev \
+                    -Dsonar.branch.target=dev \
+                    -Dsonar.sources=.'''
+                }
             }
         }
-      }
         stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
@@ -36,7 +38,7 @@ pipeline {
                 }
             } 
         }
-     stage('Push to Dockerhub') { 
+        stage('Push to Dockerhub') { 
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
@@ -44,6 +46,6 @@ pipeline {
                     }
                 } 
             }
-     }
-  }
+        }
+    }
 }
