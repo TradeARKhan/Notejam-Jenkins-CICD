@@ -30,6 +30,9 @@ pipeline {
               waitForQualityGate abortPipeline: true
               }
           }
-     }
+      }
+      stage("Build") {
+          echo 'this is the end stage."
+      }
   }
 }
