@@ -24,16 +24,9 @@ pipeline {
             }
         }
       }
-      stage("Quality Gate") {
-          steps {
-              timeout(time: 1, unit: 'HOURS') {
-              waitForQualityGate abortPipeline: true
-              }
-          }
-      }
       stage("Build") {
           steps {
-              echo "this is the end stage."
+              echo "This is the end stage."
           }
       }
   }
