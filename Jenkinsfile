@@ -6,7 +6,7 @@ pipeline {
     }
   agent any
   stages {
-    stage('SonarCloud Scan') {
+    stage('SonarCloud Scanning') {
       environment {
         SCANNER_HOME = tool 'SonarQubeScanner'
         SONAR_TOKEN = credentials('SonarCloudOne')
@@ -29,18 +29,18 @@ pipeline {
           }
        }
     }
-     stage('Building our image') { 
+    stage('Building Docker Image') { 
             steps { 
                 script { 
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                 }
             } 
         }
-   stage('Deploy our image') { 
+   stage('Push to Dockerhub') { 
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
+                    dockerImage.push() 
                     }
                 } 
             }
