@@ -32,7 +32,7 @@ pipeline {
           }
       }
       stage("Build") {
-          echo 'this is the end stage."
+          echo "this is the end stage."
       }
   }
 }
