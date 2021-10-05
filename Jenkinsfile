@@ -3,7 +3,7 @@ pipeline {
         registry = "arkdocr/jenkins" 
         registryCredential = 'docker'
         dockerImage = '' 
-    }
+        }
     agent any
     stages {
       stage('SonarCloud Scanning') {
@@ -22,14 +22,14 @@ pipeline {
             }
         }
       }
-    stage("Quality Gate") {
-      steps {
-        timeout(time: 1, unit: 'HOURS') {
-            waitForQualityGate abortPipeline: true
-          }
-       }
-    }
-    stage('Building Docker Image') { 
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage('Building Docker Image') { 
             steps { 
                 script { 
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
@@ -44,6 +44,6 @@ pipeline {
                     }
                 } 
             }
-        }
+     }
   }
 }
