@@ -10,12 +10,12 @@ pipeline {
   agent any
   stages {
       stage('SonarQube branch analysis') {
-      when {
+        when {
             not {
                 changeRequest()
                 }
             }
-      steps {
+        steps {
         withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
             sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
             -Dsonar.java.binaries=build/classes/java/ \
@@ -24,6 +24,7 @@ pipeline {
             -Dsonar.sources=.'''
             }
         }
+        stage('SonarQube other analysis') {
         when {
               changeRequest()
               }
