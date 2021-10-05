@@ -19,7 +19,6 @@ pipeline {
             -Dsonar.java.binaries=build/classes/java/ \
             -Dsonar.projectKey=$PROJECT_NAME \
             -Dsonar.branch.name=dev \
-            -Dsonar.branch.target=test \
             -Dsonar.sources=.'''
             }
         }
