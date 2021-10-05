@@ -3,7 +3,7 @@ pipeline {
         registry = "arkdocr/jenkins" 
         registryCredential = 'docker'
         dockerImage = '' 
-    }
+        }
     agent any
     stages {
       stage('SonarCloud Scanning') {
@@ -29,4 +29,5 @@ pipeline {
           }
        }
     }
+  }
 }
