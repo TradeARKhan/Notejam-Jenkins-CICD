@@ -4,8 +4,8 @@ pipeline {
          SONAR_TOKEN = credentials('SonarCloudOne')
          ORGANIZATION = "abd-xon"
          PROJECT_NAME = "abd-xon_notejam-jenkins"
-     //    BRANCH_NAME = "dev"
-        // CHANGE_BRANCH = "test"
+         BRANCH_NAME = "dev"
+         CHANGE_BRANCH = "test"
          }
   agent any
   stages {
