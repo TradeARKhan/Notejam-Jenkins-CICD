@@ -2,9 +2,8 @@
 # You should customize this list as applicable to your project.
 #comment.... comment... comment
 # Learn more about .gitignore:
-#     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+#     https://www.atlassian.com/git/tutorials/saving-changes/gitign
 
-# Node artifact files
 node_modules/
 dist/
 
