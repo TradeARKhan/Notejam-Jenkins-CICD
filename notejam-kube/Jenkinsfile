@@ -52,7 +52,7 @@ pipeline {
         }
 	stage('Deploy to GKE production cluster') {
             steps{
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME_PROD, location: env.LOCATION, manifestPattern: 'notejam-kube/mysql-deploy.yaml', credentialsId: env.CREDENTIALS_ID])
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'notejam-kube/mysql-deploy.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }  
 	
