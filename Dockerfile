@@ -1,4 +1,4 @@
-#This is a test comment
+
 FROM node:10.13.0
 
 ENV NOTEJAM_PORT=3000
